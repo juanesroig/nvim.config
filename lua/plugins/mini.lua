@@ -23,7 +23,7 @@ return {
             { hl = mode_hl, strings = { mode } },
             { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
             '%<',
-            { hl = 'StatuslineFilenameStrong', strings = { filename } },
+            { hl = 'StatuslineFilename', strings = { filename } },
             { hl = 'StatuslineModified', strings = { modified } },
             '%=',
             { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
@@ -36,14 +36,14 @@ return {
           local modified = vim.bo.modified and ' ●' or ''
 
           return statusline.combine_groups {
-            { hl = 'StatuslineFilenameStrong', strings = { filename } },
+            { hl = 'StatuslineFilename', strings = { filename } },
             { hl = 'StatuslineModified', strings = { modified } },
           }
         end,
       },
     }
 
-    vim.api.nvim_set_hl(0, 'StatuslineFilenameStrong', { bold = true })
+    vim.api.nvim_set_hl(0, 'StatuslineFilenameStrong', { bold = false })
     vim.api.nvim_set_hl(0, 'StatuslineModified', { link = 'DiagnosticWarn' })
   end,
 }
