@@ -1,6 +1,14 @@
 vim.g.python_recommended_style = 0
 vim.g.markdown_recommended_style = 0
 
+-- To fix bug with treesitter and react typescript files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "typescriptreact",
+  callback = function()
+    vim.treesitter.start(0, "tsx")
+  end,
+})
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
 
