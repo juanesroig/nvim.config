@@ -1,11 +1,10 @@
 vim.g.python_recommended_style = 0
 vim.g.markdown_recommended_style = 0
 
--- To fix bug with treesitter and react typescript files
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "typescriptreact",
-  callback = function()
-    vim.treesitter.start(0, "tsx")
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'typescriptreact',
+  callback = function(args)
+    vim.treesitter.start(args.buf, 'tsx')
   end,
 })
 
