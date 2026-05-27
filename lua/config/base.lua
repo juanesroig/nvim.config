@@ -99,6 +99,15 @@ vim.opt.ttimeoutlen = 50
 vim.opt.autoread = true
 vim.opt.autowrite = false
 
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
+  group = vim.api.nvim_create_augroup('auto-checktime', { clear = true }),
+  callback = function()
+    if vim.fn.mode() ~= 'c' then
+      vim.cmd 'checktime'
+    end
+  end,
+})
+
 vim.opt.hidden = true
 vim.opt.errorbells = false
 vim.opt.backspace = 'indent,eol,start'
