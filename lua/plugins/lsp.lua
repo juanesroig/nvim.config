@@ -8,6 +8,35 @@ return {
     'saghen/blink.cmp',
   },
   config = function()
+    vim.lsp.config('basedpyright', {
+      settings = {
+        basedpyright = {
+          analysis = {
+            logLevel = 'Information',
+            disableLanguageServices = false,
+            disableOrganizeImports = false,
+            disableTaggedHints = false,
+            diagnosticMode = 'openFilesOnly',
+            inlayHints = {
+              variableTypes = true,
+              callArgumentNames = true,
+              functionReturnTypes = true,
+              genericTypes = true,
+            },
+            useTypingExtensions = false,
+            fileEnumerationTimeout = 10,
+            typeCheckingMode = 'basic',
+            useLibraryCodeForTypes = true,
+            diagnosticSeverityOverrides = {
+              reportPrivateImportUsage = 'none',
+              reportRedeclaration = 'none',
+            },
+          },
+        },
+      },
+    })
+    vim.lsp.enable 'basedpyright'
+
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
       callback = function(event)
@@ -25,36 +54,6 @@ return {
         map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
         map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
         map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
-
-        vim.lsp.config('basedpyright', {
-          settings = {
-            basedpyright = {
-              analysis = {
-                logLevel = 'Trace',
-                disableLanguageServices = false,
-                disableOrganizeImports = false,
-                disableTaggedHints = false,
-                diagnosticMode = 'openFilesOnly',
-                stubPath = './stubs',
-                inlayHints = {
-                  variableTypes = true,
-                  callArgumentNames = true,
-                  functionReturnTypes = true,
-                  genericTypes = true,
-                },
-                useTypingExtensions = false,
-                fileEnumerationTimeout = 10,
-                typeCheckingMode = 'basic',
-                useLibraryCodeForTypes = true,
-                diagnosticSeverityOverrides = {
-                  reportPrivateImportUsage = false,
-                  reportRedeclaration = false,
-                },
-              },
-            },
-          },
-        })
-        vim.lsp.enable 'basedpyright'
 
         local function client_supports_method(client, method, bufnr)
           if vim.fn.has 'nvim-0.11' == 1 then
